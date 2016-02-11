@@ -106,7 +106,16 @@ EOS
       path: "vagrant/setup_private_network",
       args: "192.168.1.4"
     )
+    node.vm.provision "shell", inline: "cp -r /vagrant/vagrant/gauntlt /home/vagrant \
+    && chown -R vagrant.users /home/vagrant/gauntlt"
+
     node.vm.provision "shell", path: "vagrant/provision_client"
+    node.vm.provision "shell", privileged: false, inline: <<EOS
+      git clone https://github.com/iSECPartners/sslyze.git
+      echo "export SSLYZE_PATH=$HOME/sslyze/sslyze.py" >> ~/.bashrc
+      mkdir ~/attacks
+      cp ~/gauntlt/* ~/attacks/
+EOS
     node.vm.provision "shell", inline: "echo 192.168.1.2 registry.test.lan >> /etc/hosts"
     node.vm.provision "shell", inline: "echo 192.168.1.3 portus.test.lan >> /etc/hosts"
   end

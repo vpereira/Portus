@@ -4,7 +4,26 @@
 zypper ar -f http://download.opensuse.org/repositories/Virtualization/openSUSE_13.2 Virtualization
 zypper --gpg-auto-import-keys ref
 
+zypper -n update
+
 zypper -n in docker
+
+zypper -n in -t pattern devel_basis
+zypper -n in -t pattern devel_ruby
+zypper -n in ruby-devel
+zypper -n in --force-resolution python python-devel
+zypper -n in libxml2-devel libxslt-devel libopenssl-devel
+zypper -n in sqlite3-devel zlib-devel libyaml-devel libcurl-devel
+zypper -n in --force-resolution python-setuptools
+zypper -n in nmap
+zypper -n in python-requests
+
+
+gem install gauntlt bundler arachni --no-ri --no-rdoc
+
+git clone https://github.com/freddyb/Garmr.git
+cd Garmr
+python setup.py install
 
 # still required because we are not using our package
 cat <<EOF > /usr/lib/systemd/system/docker.service
@@ -26,4 +45,4 @@ usermod -aG docker vagrant
 systemctl enable docker
 systemctl start docker
 
-docker pull busybox
+# docker pull busybox
