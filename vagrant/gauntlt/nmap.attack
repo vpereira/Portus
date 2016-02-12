@@ -2,15 +2,16 @@ Feature: simple nmap attack (sanity check)
 
   Background:
     Given "nmap" is installed
-    And the target hostname is "google.com"
+    And the target hostname is "regitry.test.lan"
 
   Scenario: Verify server is available on standard web ports
     When I launch an "nmap" attack with:
       """
-      nmap -p 80,443 <hostname>
+      nmap -p 22,80,443 <hostname>
       """
     Then the output should contain:
       """
-      80/tcp  open  http
-      443/tcp open  https
+        22/tcp  open   ssh
+        80/tcp  open   http
+        443/tcp closed https
       """
