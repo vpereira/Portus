@@ -2,6 +2,7 @@
 
 ## Install the registry
 zypper ar -f http://download.opensuse.org/repositories/Virtualization/openSUSE_13.2 Virtualization
+zypper ar -f http://download.opensuse.org/repositories/security:/tools/openSUSE_Leap_42.1 SecurityTools
 zypper --gpg-auto-import-keys ref
 
 zypper -n update
@@ -17,13 +18,14 @@ zypper -n in sqlite3-devel zlib-devel libyaml-devel libcurl-devel
 zypper -n in --force-resolution python-setuptools
 zypper -n in nmap
 zypper -n in python-requests
-
+zypper -n in garmr
 
 gem install gauntlt bundler arachni --no-ri --no-rdoc
 
-git clone https://github.com/freddyb/Garmr.git
-cd Garmr
-python setup.py install
+
+#git clone https://github.com/freddyb/Garmr.git
+#cd Garmr
+#python setup.py install
 
 # still required because we are not using our package
 cat <<EOF > /usr/lib/systemd/system/docker.service
